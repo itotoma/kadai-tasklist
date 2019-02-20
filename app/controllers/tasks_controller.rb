@@ -1,4 +1,5 @@
 class TasksController < ApplicationController
+    before_action :set_task, only: [:show,:edit,:update,:destroy]
     #Controllerの名前にはモデルの複数形
     #すなわちリソースの大文字
     def index
@@ -23,17 +24,14 @@ class TasksController < ApplicationController
     end
     
     def edit
-        @task = Task.find(params[:id])
+         
     end
-    
+
     def show
-        #routeが/messages/:idのリクエストを受け取った時、
-        #idはparams[:id]に代入される
-        @task = Task.find(params[:id])
     end
     
     def update
-        @task = Task.find(params[:id])
+         
         if @task.update(task_params)
             flash[:success] = "Taskは正常に更新されました"
             redirect_to @task
@@ -44,14 +42,21 @@ class TasksController < ApplicationController
     end
     
     def destroy
-        @task = Task.find(params[:id])
         @task.destroy
         flash[:success] = "Taskは正常に削除されました"
         redirect_to tasks_url
     end
     
-    private def task_params
-        params.require(:task).permit(:content)
-        #Taskモデルのデータと明示し、contentカラムだけを抜き出す
+    
+    private 
+    
+    def set_task
+        @task = Task.find(params[:id])
+    end
+        
+    
+    def task_params
+        params.require(:task).permit(:content,:status)
+        #Taskモデルのデータと明示し、contentカラムとステータスだけを抜き出す
     end
 end
