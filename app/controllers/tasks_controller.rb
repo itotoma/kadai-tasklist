@@ -3,7 +3,7 @@ class TasksController < ApplicationController
     #Controllerの名前にはモデルの複数形
     #すなわちリソースの大文字
     def index
-        @tasks = Task.all
+        @tasks = Task.all.page(params[:page]).per(10)
     end
     
     def create
