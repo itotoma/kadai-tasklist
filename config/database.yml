@@ -16,6 +16,11 @@ default: &default
   username: root
   password:
   socket: /var/lib/mysql/mysql.sock
+  
+edited: &edited
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
 
 development:
   <<: *default
@@ -48,7 +53,7 @@ test:
 #     url: <%= ENV['DATABASE_URL'] %>
 #
 production:
-  <<: *default
+  <<: *edited
   database: tasklist_production
   username: tasklist
   password: <%= ENV['TASKLIST_DATABASE_PASSWORD'] %>

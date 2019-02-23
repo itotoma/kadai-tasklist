@@ -61,3 +61,9 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'kaminari'
+
+group :production do
+  gem 'pg', '0.21.0'
+end
+#production環境(Heroku)においてPostgreSQLとRailsを連携するためのGemたるpgを使用する
+#cloud9はdevelopment環境なので読み込ませない(--without production)
