@@ -1,0 +1,18 @@
+<% if users.any? %>
+    <ul class="media-list">
+        <% users.each do |user| %>
+            <div class="media-left">
+                <img class="media-object" "img-rounded" src="<%= gravatar_url(user, { size: 50 }) %>" alt="" >
+            </div>
+            <div class="media-body">
+                <div>
+                    <%= user.name %>
+                </div>
+                <div>
+                    <P><%= link_to 'View prpfile', user_path(user) %></P>
+                </div>
+            </div>
+        <% end %>
+    </ul>
+    <%= paginate users %>
+<% end %>
