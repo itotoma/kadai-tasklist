@@ -9,7 +9,6 @@ Rails.application.routes.draw do
   get 'signup', to: 'users#new'
   
   resources :users
-  resources :users, only: [:index, :show, :new, :create]
   
   #LoginとLogoutはRails提供のSessionコントローラーで作る
   get "login", to: 'sessions#new'

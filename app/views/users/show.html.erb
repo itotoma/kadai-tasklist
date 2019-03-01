@@ -10,10 +10,17 @@
                 <img class="media-object img-rounded img-responsive" src="<%= gravatar_url(@user, { size: 500 }) %>" alt="">
             </div>
         </div>
+        <% if @user.id == current_user.id %>
+            <%= link_to 'このアカウントを編集する' ,edit_user_path(@user), class: 'btn btn-default' %>
+        <% end %>
     </aside>
     <div class="col-xs-8">
         <ul class="nav nav-tabs nav-justified">
-          <li><a href="tasks_path">TaskList</a></li>
+            <% if @user.id == current_user.id %>
+              <li><%= link_to "Tasklist", tasks_path %></li>
+            <% else  %>
+              <h1>このアカウントのタスクは閲覧できません</h1>
+            <% end %>
         </ul>
     </div>
 </div>
