@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
-    before_action :require_user_logged_in, only: [:index, :show]
-    before_action :set_user, only:[:destroy, :update]
+    before_action :require_user_logged_in,only: [:index, :show]
+    before_action :require_user_correspondence, only:[:edit]
+    before_action :set_user, only:[:update]
    
     def index
         @users = User.all.page(params[:page])
@@ -44,7 +45,7 @@ class UsersController < ApplicationController
     private
     
     def set_user
-        @user = User.find(params[:id])
+        @user = current_user.find(params[:id])
     end
     
     def user_params

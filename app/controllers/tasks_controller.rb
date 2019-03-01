@@ -1,5 +1,6 @@
 class TasksController < ApplicationController
-    before_action :set_task, only: [:show,:edit,:update,:destroy]
+    before_action :require_user_logged_in
+    before_action :correct_user, only: [:show,:edit,:update,:destroy]
     #Controllerの名前にはモデルの複数形
     #すなわちリソースの大文字
     def index
@@ -25,9 +26,15 @@ class TasksController < ApplicationController
     end
     
     def edit
+         unless @task
+            redirect_to login_url
+        end
     end
 
     def show
+        unless @task
+            redirect_to login_url
+        end
     end
     
     def update
@@ -50,8 +57,8 @@ class TasksController < ApplicationController
     
     private 
     
-    def set_task
-        @task = Task.find(params[:id])
+    def correct_user
+        @task = current_user.tasks.find_by(id: params[:id])
     end
         
     
@@ -59,4 +66,5 @@ class TasksController < ApplicationController
         params.require(:task).permit(:content,:status)
         #Taskモデルのデータと明示し、contentカラムとステータスだけを抜き出す
     end
+    
 end
